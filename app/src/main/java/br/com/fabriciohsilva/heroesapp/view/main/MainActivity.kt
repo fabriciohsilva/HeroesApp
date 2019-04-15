@@ -2,6 +2,7 @@ package br.com.fabriciohsilva.heroesapp.view.main
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,8 @@ import android.view.View
 import android.widget.Toast
 import br.com.fabriciohsilva.heroesapp.R
 import br.com.fabriciohsilva.heroesapp.model.Hero
+import br.com.fabriciohsilva.heroesapp.view.form.FormActivity
+import br.com.fabriciohsilva.heroesapp.view.form.FormViewModel
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -36,9 +39,12 @@ class MainActivity : AppCompatActivity() {
         registerObservers()
 
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+        fab.setOnClickListener { view -> startActivityForResult(
+                Intent(
+                    this,
+                    FormActivity::class.java
+                ), 1
+            )
         }
     }
 

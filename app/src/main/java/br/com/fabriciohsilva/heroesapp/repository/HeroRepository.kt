@@ -32,4 +32,21 @@ class HeroRepository {
 
     }//end fun searchAll
 
+
+    fun saveHero(hero: Hero,
+               onComplete: (Hero) -> Unit,
+               onError: (Throwable?) -> Unit) {
+        getHeroAPI()
+            .saveHero(hero)
+            .enqueue(object : Callback<Hero>{
+                override fun onFailure(call: Call<Hero>, t: Throwable) {
+                    onError(t)
+                }//end override fun onFailure
+
+                override fun onResponse(call: Call<Hero>, response: Response<Hero>) {
+                    onComplete(response.body()!!)
+                }//end override fun onResponse
+            })//end getHeroAPI.enqueue
+    }//end fun saveHero
+
 }//end class HeroRepository
