@@ -39,4 +39,54 @@ class FormViewModel : ViewModel() {
 
     }
 
+    fun update(
+        id: String,
+        name: String,
+        power: String
+    ) {
+
+        isLoading.value = true
+
+        val hero = Hero(name = name, power = power)
+
+        heroRepository.updateHero(id, hero,
+            onComplete = {
+                isLoading.value = false
+                responseStatus.value = ResponseStatus(
+                    true,
+                    "Dado gravado com sucesso"
+                )
+            }, onError = {
+                isLoading.value = false
+                responseStatus.value = ResponseStatus(
+                    false,
+                    it?.message!!
+                )
+            })
+
+    }
+
+    fun delete(
+       hero: Hero
+    ) {
+
+        isLoading.value = true
+
+        heroRepository.deleteHero(hero._id!!,
+            onComplete = {
+                isLoading.value = false
+                responseStatus.value = ResponseStatus(
+                    true,
+                    "heroi excluído com sucesso"
+                )
+            }, onError = {
+                isLoading.value = false
+                responseStatus.value = ResponseStatus(
+                    false,
+                    it?.message!!
+                )
+            })
+
+    }
+
 }//end class FormularioViewModel

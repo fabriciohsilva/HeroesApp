@@ -38,13 +38,8 @@ class MainActivity : AppCompatActivity() {
 
         registerObservers()
 
-
-        fab.setOnClickListener { view -> startActivityForResult(
-                Intent(
-                    this,
-                    FormActivity::class.java
-                ), 1
-            )
+        fab.setOnClickListener {
+                view -> startActivityForResult( Intent(this, FormActivity::class.java), 1)
         }
     }
 

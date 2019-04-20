@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import br.com.fabriciohsilva.heroesapp.R
+import br.com.fabriciohsilva.heroesapp.model.Hero
 import br.com.fabriciohsilva.heroesapp.model.ResponseStatus
 import kotlinx.android.synthetic.main.activity_form.*
 import kotlinx.android.synthetic.main.loading.*
@@ -22,11 +23,28 @@ class FormActivity : AppCompatActivity() {
 
         formViewModel = ViewModelProviders.of(this).get(FormViewModel::class.java)
 
+        var hero =  getIntent().getSerializableExtra("hero") as? Hero
+
+        if (hero != null ){
+            etName.editText?.setText(hero.name)
+            etPower.editText?.setText(hero.power)
+        }
+
         btnSave.setOnClickListener {
-            formViewModel.save(
-                etName.editText?.text.toString(),
-                etPower.editText?.text.toString()
-            )
+
+            if (hero != null ) {
+                formViewModel.update(
+                    hero._id!!,
+                    etName.editText?.text.toString(),
+                    etPower.editText?.text.toString()
+                )
+            } else {
+                formViewModel.save(
+                    etName.editText?.text.toString(),
+                    etPower.editText?.text.toString()
+                )
+            }
+
         }
 
         registerObserver()
