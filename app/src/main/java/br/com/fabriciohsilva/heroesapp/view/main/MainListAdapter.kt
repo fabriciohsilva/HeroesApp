@@ -1,7 +1,5 @@
 package br.com.fabriciohsilva.heroesapp.view.main
 
-
-
 import android.app.Activity
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
@@ -21,25 +19,28 @@ import br.com.fabriciohsilva.heroesapp.view.form.FormViewModel
 import kotlinx.android.synthetic.main.hero_item.view.*
 
 
+class MainListAdapter( val heroes: List<Hero>, val context: Context, val mainViewModel: MainViewModel, val formViewModel: FormViewModel): RecyclerView.Adapter<MainListAdapter.NoteViewHolder>() {
 
 
-
-class MainListAdapter( val heroes: List<Hero>, val context: Context ): RecyclerView.Adapter<MainListAdapter.NoteViewHolder>() {
-
-    lateinit var formViewModel: FormViewModel
     val activity = context as Activity
-    val PICK_CONTACT_REQUEST = 1  // The request code
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): NoteViewHolder {
         val itemView = LayoutInflater
             .from(context)
             .inflate(R.layout.hero_item, p0, false)
 
-        //val activity = context as Fragment
-        //formViewModel = ViewModelProviders.of(activity).get(FormViewModel::class.java)
+        val activity = context as Activity
 
         return NoteViewHolder(itemView)
     }//end override fun onCreateViewHolder
+
+    @Override
+    fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK) {
+            mainViewModel.searchAll()
+        }
+    }
+
 
     override fun getItemCount(): Int {
         return heroes.size
@@ -55,7 +56,6 @@ class MainListAdapter( val heroes: List<Hero>, val context: Context ): RecyclerV
 
             var intent = Intent(context, FormActivity::class.java)
             intent.putExtra("hero", heroes.get(position))
-
             startActivityForResult(activity, intent, 1, null)
             //context.startActivity(intent)
         }
@@ -69,8 +69,11 @@ class MainListAdapter( val heroes: List<Hero>, val context: Context ): RecyclerV
 
             // Do something when user press the positive button
             builder.setPositiveButton("YES"){dialog, which ->
-                Toast.makeText(context, heroes.get(position).name + " Excluído da lista", Toast.LENGTH_SHORT).show()
-                //formViewModel.delete(heroes.get(position))
+                var nameHero = heroes.get(position).name
+
+                formViewModel.delete(heroes.get(position))
+                mainViewModel.searchAll()
+                Toast.makeText(context, nameHero + " Excluído da lista", Toast.LENGTH_SHORT).show()
             }
 
 
@@ -93,19 +96,6 @@ class MainListAdapter( val heroes: List<Hero>, val context: Context ): RecyclerV
         }
 
     }//end override fun onBindViewHolder
-
-    protected fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-        // Check which request we're responding to
-        if (requestCode == PICK_CONTACT_REQUEST) {
-            // Make sure the request was successful
-            if (resultCode == 1) {
-                // The user picked a contact.
-                // The Intent's data Uri identifies which contact was selected.
-
-                // Do something with the contact here (bigger example below)
-            }
-        }
-    }
 
     class NoteViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         fun bindView(hero: Hero) = with(itemView) {
