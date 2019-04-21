@@ -1,5 +1,6 @@
 package br.com.fabriciohsilva.heroesapp.view.main
 
+import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
@@ -24,6 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     //var mainViewModel: MainViewModel? = null
     lateinit var mainViewModel: MainViewModel
+    lateinit var formViewModel: FormViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,8 +33,8 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
 
-        mainViewModel = ViewModelProviders.of(this)
-            .get(MainViewModel::class.java)
+        mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        formViewModel = ViewModelProviders.of(this).get(FormViewModel::class.java)
 
         mainViewModel.searchAll()
 
@@ -42,6 +44,14 @@ class MainActivity : AppCompatActivity() {
                 view -> startActivityForResult( Intent(this, FormActivity::class.java), 1)
         }
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            mainViewModel.searchAll()
+        }
+    }
+
 
     private fun registerObservers() {
         mainViewModel.isLoading.observe(this, isloadingObserver)
@@ -64,7 +74,7 @@ class MainActivity : AppCompatActivity() {
     }//end private var msgErrorObserver
 
     private  var notasObserver = Observer<List<Hero>> {
-        rvHeroes.adapter = MainListAdapter(it!!, this )
+        rvHeroes.adapter = MainListAdapter(it!!, this , mainViewModel, formViewModel)
         rvHeroes.layoutManager = LinearLayoutManager(this)
     }
 
