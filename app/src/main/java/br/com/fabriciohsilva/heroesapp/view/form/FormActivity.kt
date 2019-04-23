@@ -31,23 +31,54 @@ class FormActivity : AppCompatActivity() {
         }
 
         btnSave.setOnClickListener {
-
-            if (hero != null ) {
-                formViewModel.update(
-                    hero._id!!,
-                    etName.editText?.text.toString(),
-                    etPower.editText?.text.toString()
-                )
-            } else {
-                formViewModel.save(
-                    etName.editText?.text.toString(),
-                    etPower.editText?.text.toString()
-                )
+            val valid = validateForm()
+            if(valid) {
+                if (hero != null) {
+                    formViewModel.update(
+                        hero._id!!,
+                        etName.editText?.text.toString(),
+                        etPower.editText?.text.toString()
+                    )
+                } else {
+                    formViewModel.save(
+                        etName.editText?.text.toString(),
+                        etPower.editText?.text.toString()
+                    )
+                }
             }
 
         }
 
         registerObserver()
+    }
+
+    private fun validateForm(): Boolean {
+        var name = true
+        var power = true
+        var weakness = true
+
+        if (etName.editText?.length() === 0) {
+            etName.error = getText(R.string.nameRequired)
+            name = false
+        } else {
+            etName.error = null
+        }
+
+        if (etPower.editText?.length() === 0) {
+            etPower.error = getText(R.string.powerRequired)
+            power = false
+        } else {
+            etPower.error = null
+        }
+
+        if (etWeakness.editText?.length() === 0) {
+            etWeakness.error = getText(R.string.weaknessRequired)
+            weakness = false
+        } else {
+            etWeakness.error = null
+        }
+
+        return name && power && weakness
     }
 
     private fun registerObserver() {

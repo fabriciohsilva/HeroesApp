@@ -24,7 +24,8 @@
 				android:id="@+id/etName">
 			<EditText android:layout_width="match_parent"
 			          android:layout_height="wrap_content"
-			          android:hint="@string/name"/>
+			          android:hint="@string/name"
+			          android:maxLength="70"/>
 		</android.support.design.widget.TextInputLayout>
 
 		<android.support.design.widget.TextInputLayout
@@ -34,9 +35,21 @@
 				android:id="@+id/etPower">
 			<EditText android:layout_width="match_parent"
 			          android:layout_height="wrap_content"
-			          android:hint="@string/power"/>
+			          android:hint="@string/power"
+			          android:maxLength="130"/>
 		</android.support.design.widget.TextInputLayout>
 
+		<android.support.design.widget.TextInputLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				style="@style/input"
+				android:id="@+id/etWeakness">
+			<EditText
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:hint="@string/weakness"
+					android:maxLength="130"/>
+		</android.support.design.widget.TextInputLayout>
 		<Switch
 				android:text="@string/vilain"
 				android:layout_width="match_parent"
