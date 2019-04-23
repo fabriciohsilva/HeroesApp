@@ -13,10 +13,14 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent">
 
-		<ImageButton
+		<ImageView
 				android:layout_width="match_parent"
-				android:layout_height="86dp" app:srcCompat="@drawable/ic_add_a_photo_black_36dp"
+				android:layout_height="86dp"
+				app:srcCompat="@drawable/ic_add_a_photo_black_36dp"
+				android:clickable="true"
+				android:focusable="true"
 				android:id="@+id/ibHeroAvatar"/>
+
 		<android.support.design.widget.TextInputLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
@@ -50,11 +54,15 @@
 					android:hint="@string/weakness"
 					android:maxLength="130"/>
 		</android.support.design.widget.TextInputLayout>
+
 		<Switch
 				android:text="@string/vilain"
 				android:layout_width="match_parent"
 				style="@style/label"
-				android:layout_height="51dp" android:id="@+id/swVilain" android:paddingLeft="5dp"/>
+				android:layout_height="51dp"
+				android:id="@+id/swVilain"
+				android:paddingLeft="5dp"/>
+
 		<Button
 				android:id="@+id/btnSave"
 				android:layout_width="match_parent"
@@ -62,6 +70,12 @@
 				style="@style/button"
 				android:text="@string/save"/>
 
+		<TextView
+				android:layout_marginTop="16dp"
+				android:id="@+id/testeimg"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="img convertida"/>
 	</LinearLayout>
 
 	<include layout="@layout/loading" android:visibility="gone"/>

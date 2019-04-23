@@ -16,11 +16,13 @@ class FormViewModel : ViewModel() {
 
     fun save(
         name: String,
-        power: String
+        power: String,
+        weakness: String,
+        avatar: String
     ) {
 
         isLoading.value = true
-        val hero = Hero(name = name, power = power)
+        val hero = Hero(name = name, power = power, weakness = weakness, avatar = avatar)
 
         heroRepository.saveHero(hero,
             onComplete = {
@@ -42,12 +44,14 @@ class FormViewModel : ViewModel() {
     fun update(
         id: String,
         name: String,
-        power: String
+        power: String,
+        weakness: String,
+        avatar: String
     ) {
 
         isLoading.value = true
 
-        val hero = Hero(name = name, power = power)
+        val hero = Hero(name = name, power = power, weakness = weakness, avatar = avatar)
 
         heroRepository.updateHero(id, hero,
             onComplete = {
