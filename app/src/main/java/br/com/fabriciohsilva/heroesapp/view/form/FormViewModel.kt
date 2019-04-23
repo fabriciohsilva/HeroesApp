@@ -18,11 +18,12 @@ class FormViewModel : ViewModel() {
         name: String,
         power: String,
         weakness: String,
+        villain: Boolean,
         avatar: String
     ) {
 
         isLoading.value = true
-        val hero = Hero(name = name, power = power, weakness = weakness, avatar = avatar)
+        val hero = Hero(name = name, power = power, weakness = weakness, villain = villain, avatar = avatar)
 
         heroRepository.saveHero(hero,
             onComplete = {
@@ -46,12 +47,13 @@ class FormViewModel : ViewModel() {
         name: String,
         power: String,
         weakness: String,
+        villain: Boolean,
         avatar: String
     ) {
 
         isLoading.value = true
 
-        val hero = Hero(name = name, power = power, weakness = weakness, avatar = avatar)
+        val hero = Hero(name = name, power = power, weakness = weakness, villain = villain, avatar = avatar)
 
         heroRepository.updateHero(id, hero,
             onComplete = {

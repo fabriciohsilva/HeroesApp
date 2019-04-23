@@ -1,12 +1,12 @@
 # HeroesApp
 
-HeroesApp is an Android app to manage heroes profiles, classifying the heroe by power, weakness and if he is a villain or not.
-This project provides a sample of how-t-do a CRUD in Kotlin consuming an API Rest using MongoDB to persist the data's application.
+HeroesApp is an Android app to manage heroes profile, describing the hero with power, weakness and if he is a villain or not.
+This project provides a sample of how-to-do a CRUD in Kotlin consuming an API Rest using MongoDB to persist the data application.
 
 ## Instalation
 First make sure you have all the apps necessaries to execute the solution:
 - Android Studio 3.3.2
-- An Virtual Device with an API 21 or greather or a mobile device with an SKD 21 or greather
+- An Virtual Device with a SKD 21 or greather
 
 Clone this repository and import into **Android Studio**
 ``` bash

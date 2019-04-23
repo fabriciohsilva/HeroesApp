@@ -8,6 +8,6 @@ data class Hero  (
     @SerializedName("nome") val name: String? = null,
     @SerializedName("poder") val power: String? = null,
     @SerializedName("fraqueza") val weakness: String? = null,
-    @SerializedName("vilao") val villain: Boolean? = null,
+    @SerializedName("vilao") val villain: Boolean = false,
     val avatar: String? = null
 ) : Serializable

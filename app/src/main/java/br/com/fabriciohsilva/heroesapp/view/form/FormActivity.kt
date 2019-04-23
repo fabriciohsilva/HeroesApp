@@ -39,6 +39,8 @@ class FormActivity : AppCompatActivity() {
         if (hero != null ){
             etName.editText?.setText(hero.name)
             etPower.editText?.setText(hero.power)
+            etWeakness.editText?.setText(hero.weakness)
+            swVilain.isChecked = hero.villain
 
             if (hero.avatar != null) {
                 heroAvatar = hero.avatar!!
@@ -65,6 +67,7 @@ class FormActivity : AppCompatActivity() {
                         etName.editText?.text.toString(),
                         etPower.editText?.text.toString(),
                         etWeakness.editText?.text.toString(),
+                        swVilain.isChecked,
                         heroAvatar
                     )
                 } else {
@@ -72,6 +75,7 @@ class FormActivity : AppCompatActivity() {
                         etName.editText?.text.toString(),
                         etPower.editText?.text.toString(),
                         etWeakness.editText?.text.toString(),
+                        swVilain.isChecked,
                         heroAvatar
                     )
                 }
