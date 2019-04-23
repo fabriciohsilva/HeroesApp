@@ -6,7 +6,7 @@ This project provides a sample of how-to-do a CRUD in Kotlin consuming an API Re
 ## Instalation
 First make sure you have all the apps necessaries to execute the solution:
 - Android Studio 3.3.2
-- An Virtual Device with a SKD 21 or greather
+- Virtual Device with a SKD 21 or greather
 
 Clone this repository and import into **Android Studio**
 ``` bash
