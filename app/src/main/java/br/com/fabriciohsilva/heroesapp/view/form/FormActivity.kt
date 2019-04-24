@@ -20,17 +20,24 @@ import android.graphics.Bitmap
 import android.util.Base64
 import java.io.ByteArrayOutputStream
 import java.io.ByteArrayInputStream
+import br.com.fabriciohsilva.heroesapp.helper.utilsHelper
+
+
 
 
 class FormActivity : AppCompatActivity() {
 
     private lateinit var formViewModel: FormViewModel
+    private lateinit var helper: utilsHelper
     private val RESULT_LOAD_IMAGE = 1
     private var heroAvatar: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_form)
+
+        //helper = utilsHelper(this);
+
 
         formViewModel = ViewModelProviders.of(this).get(FormViewModel::class.java)
 
@@ -47,15 +54,12 @@ class FormActivity : AppCompatActivity() {
                 decodeBase64AndSetImage(hero.avatar!!, ibHeroAvatar)
             }
 
-        }
+        }//end if (hero != null )
 
         ibHeroAvatar.setOnClickListener {
-            val i = Intent(
-                Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-            )
-
-        }
+            val i = Intent( Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            startActivityForResult(i, RESULT_LOAD_IMAGE);
+        }//end ibHeroAvatar.setOnClickListener
 
 
         btnSave.setOnClickListener {
@@ -107,6 +111,7 @@ class FormActivity : AppCompatActivity() {
             imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath))
 
             var heroAvatar = getBase64String(picturePath)
+            //var heroAvatar = getBa
         }
     }//end override fun onActivityResult
 
