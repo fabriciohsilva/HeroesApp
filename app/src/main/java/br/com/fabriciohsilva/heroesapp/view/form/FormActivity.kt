@@ -20,17 +20,23 @@ import android.graphics.Bitmap
 import android.util.Base64
 import java.io.ByteArrayOutputStream
 import java.io.ByteArrayInputStream
+import br.com.fabriciohsilva.heroesapp.helper.utilsHelper
+import java.io.FileNotFoundException
 
 
 class FormActivity : AppCompatActivity() {
 
     private lateinit var formViewModel: FormViewModel
+    private lateinit var helper: utilsHelper
     private val RESULT_LOAD_IMAGE = 1
     private var heroAvatar: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_form)
+
+        //helper = utilsHelper(this);
+
 
         formViewModel = ViewModelProviders.of(this).get(FormViewModel::class.java)
 
@@ -47,15 +53,12 @@ class FormActivity : AppCompatActivity() {
                 decodeBase64AndSetImage(hero.avatar!!, ibHeroAvatar)
             }
 
-        }
+        }//end if (hero != null )
 
         ibHeroAvatar.setOnClickListener {
-            val i = Intent(
-                Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-            )
-
-        }
+            val i = Intent( Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            startActivityForResult(i, RESULT_LOAD_IMAGE);
+        }//end ibHeroAvatar.setOnClickListener
 
 
         btnSave.setOnClickListener {
@@ -86,29 +89,50 @@ class FormActivity : AppCompatActivity() {
         registerObserver()
     }//end override fun onCreate
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//
+//        if (requestCode == RESULT_LOAD_IMAGE && resultCode == Activity.RESULT_OK && null != data) {
+//            val selectedImage = data.data
+//            val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
+//
+//            val cursor = contentResolver.query(
+//                selectedImage!!,
+//                filePathColumn, null, null, null
+//            )
+//            cursor!!.moveToFirst()
+//
+//            val columnIndex = cursor.getColumnIndex(filePathColumn[0])
+//            val picturePath = cursor.getString(columnIndex)
+//            cursor.close()
+//
+//            val imageView = findViewById<View>(R.id.ibHeroAvatar) as ImageView
+//            imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath))
+//
+//            var heroAvatar = getBase64String(picturePath)
+//            //var heroAvatar = getBa
+//        }
+//    }//end override fun onActivityResult
 
-        if (requestCode == RESULT_LOAD_IMAGE && resultCode == Activity.RESULT_OK && null != data) {
-            val selectedImage = data.data
-            val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
+    override fun onActivityResult(reqCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(reqCode, resultCode, data)
 
-            val cursor = contentResolver.query(
-                selectedImage!!,
-                filePathColumn, null, null, null
-            )
-            cursor!!.moveToFirst()
 
-            val columnIndex = cursor.getColumnIndex(filePathColumn[0])
-            val picturePath = cursor.getString(columnIndex)
-            cursor.close()
+        if (resultCode == Activity.RESULT_OK) {
+            try {
+                val imageUri = data!!.data
+                val imageStream = contentResolver.openInputStream(imageUri!!)
+                val selectedImage = BitmapFactory.decodeStream(imageStream)
+                ibHeroAvatar.setImageBitmap(selectedImage)
+            } catch (e: FileNotFoundException) {
+                e.printStackTrace()
+                Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show()
+            }
 
-            val imageView = findViewById<View>(R.id.ibHeroAvatar) as ImageView
-            imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath))
-
-            var heroAvatar = getBase64String(picturePath)
+        } else {
+            Toast.makeText(this, "You haven't picked Image", Toast.LENGTH_LONG).show()
         }
-    }//end override fun onActivityResult
+    }
 
     private fun getBase64String(mCurrentPhotoPath: String): String {
 

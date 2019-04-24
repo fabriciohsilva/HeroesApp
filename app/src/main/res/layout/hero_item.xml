@@ -32,6 +32,7 @@
 				    tools:ignore="MissingConstraints"
 				    android:padding="0dp"
 				    app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"/>
+
 		    <TextView
 				    android:id="@+id/tvName"
 				    android:text="@string/name"
@@ -41,10 +42,9 @@
 				    app:layout_constraintStart_toStartOf="parent"/>
 
 		    <ImageView
-				    android:layout_width="32dp"
-				    android:layout_height="32dp"
+				    android:layout_width="50dp"
+				    android:layout_height="50dp"
 				    android:id="@+id/person_photo"
-				    android:src="@drawable/ironmain"
 				    android:layout_alignParentLeft="true"
 				    android:layout_alignParentTop="true"
 				    android:layout_marginTop="8dp"
@@ -57,18 +57,12 @@
 				    style="@style/card_text"
 				    android:layout_below="@+id/tvName"
 				    android:layout_alignParentTop="true"
-				    app:layout_constraintStart_toStartOf="@+id/tvHeroDescription"
-				    android:layout_marginTop="8dp"
-				    app:layout_constraintTop_toBottomOf="@+id/person_photo" android:layout_marginBottom="8dp"
-				    app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.0"/>
-		    <TextView
-				    android:text="@string/vilain"
-				    style="@style/card_text"
-				    android:layout_width="wrap_content"
-				    android:layout_height="wrap_content"
-				    android:id="@+id/tvHeroDescription" app:layout_constraintStart_toEndOf="@+id/person_photo"
-				    android:layout_marginStart="8dp"
-				    app:layout_constraintTop_toTopOf="@+id/person_photo" android:layout_marginTop="8dp"/>
+				    android:layout_marginBottom="8dp"
+				    app:layout_constraintBottom_toBottomOf="@+id/person_photo"
+				    app:layout_constraintStart_toEndOf="@+id/person_photo" android:layout_marginStart="8dp"
+				    app:layout_constraintTop_toTopOf="@+id/person_photo"/>
+
+
 		    <TextView
 				    android:text="@string/weakness"
 				    style="@style/card_text"
@@ -76,8 +70,8 @@
 				    android:layout_height="wrap_content"
 				    android:id="@+id/tvWeakness" android:layout_marginTop="8dp"
 				    app:layout_constraintTop_toBottomOf="@+id/tvPower"
-				    app:layout_constraintStart_toStartOf="@+id/tvPower" app:layout_constraintBottom_toBottomOf="parent"
-				    android:layout_marginBottom="8dp"/>
+				    app:layout_constraintStart_toStartOf="@+id/tvPower"
+				    app:layout_constraintBottom_toBottomOf="@+id/person_photo"/>
 
 	    </android.support.constraint.ConstraintLayout>
 

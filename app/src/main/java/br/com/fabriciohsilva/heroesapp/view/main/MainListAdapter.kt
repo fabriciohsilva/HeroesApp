@@ -1,22 +1,25 @@
 package br.com.fabriciohsilva.heroesapp.view.main
 
 import android.app.Activity
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.support.v4.app.ActivityCompat.startActivityForResult
-import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.RecyclerView
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import br.com.fabriciohsilva.heroesapp.R
 import br.com.fabriciohsilva.heroesapp.model.Hero
 import br.com.fabriciohsilva.heroesapp.view.form.FormActivity
 import br.com.fabriciohsilva.heroesapp.view.form.FormViewModel
+import kotlinx.android.synthetic.main.activity_form.view.*
 import kotlinx.android.synthetic.main.hero_item.view.*
+import java.io.ByteArrayInputStream
 
 
 class MainListAdapter( val heroes: List<Hero>, val context: Context, val mainViewModel: MainViewModel, val formViewModel: FormViewModel): RecyclerView.Adapter<MainListAdapter.NoteViewHolder>() {
@@ -99,9 +102,25 @@ class MainListAdapter( val heroes: List<Hero>, val context: Context, val mainVie
 
     class NoteViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         fun bindView(hero: Hero) = with(itemView) {
-            tvName.text  = hero.name
+            tvName.text = hero.name
             tvPower.text = hero.power
+            if (hero.villain){
+                person_photo.setBackgroundResource(R.drawable.villain)
+            } else {
+                person_photo.setBackgroundResource(R.drawable.hero)
+            }
+            if (hero.avatar != null)
+                decodeBase64AndSetImage(hero.avatar!!, ivHeroAvatar)
         }//end fun bindView
+
+        private fun decodeBase64AndSetImage(completeImageData: String, imageView: ImageView) {
+            // Incase you're storing into aws or other places where we have extension stored in the starting.
+            val imageDataBytes = completeImageData.substring(completeImageData.indexOf(",") + 1)
+            val stream = ByteArrayInputStream(Base64.decode(imageDataBytes.toByteArray(), Base64.DEFAULT))
+            val bitmap = BitmapFactory.decodeStream(stream)
+
+            imageView.setImageBitmap(bitmap)
+        }// private fun decodeBase64AndSetImage
 
     }//end class NoteViewHolder
 
