@@ -109,8 +109,8 @@ class MainListAdapter( val heroes: List<Hero>, val context: Context, val mainVie
             } else {
                 person_photo.setBackgroundResource(R.drawable.hero)
             }
-            //if (hero.avatar != null)
-                //decodeBase64AndSetImage(hero.avatar!!, ivHeroAvatar)
+            if (hero.avatar != null)
+                decodeBase64AndSetImage(hero.avatar!!, ivHeroAvatar)
         }//end fun bindView
 
         private fun decodeBase64AndSetImage(completeImageData: String, imageView: ImageView) {
