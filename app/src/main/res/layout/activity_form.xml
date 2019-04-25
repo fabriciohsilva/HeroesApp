@@ -7,77 +7,81 @@
 		android:layout_height="match_parent"
 		tools:context=".view.form.FormActivity">
 
-	<LinearLayout
-			android:padding="16dp"
-			android:orientation="vertical"
+	<ScrollView
 			android:layout_width="match_parent"
 			android:layout_height="match_parent">
 
-		<ImageView
+		<LinearLayout
+				android:padding="16dp"
+				android:orientation="vertical"
 				android:layout_width="match_parent"
-				android:layout_height="86dp"
-				app:srcCompat="@drawable/ic_add_a_photo_black_36dp"
-				android:clickable="true"
-				android:focusable="true"
-				android:id="@+id/ibHeroAvatar"/>
+				android:layout_height="wrap_content">
 
-		<android.support.design.widget.TextInputLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				style="@style/input"
-				android:id="@+id/etName">
-			<EditText android:layout_width="match_parent"
-			          android:layout_height="wrap_content"
-			          android:hint="@string/name"
-			          android:maxLength="70"/>
-		</android.support.design.widget.TextInputLayout>
+			<ImageView
+					android:layout_width="match_parent"
+					android:layout_height="86dp"
+					app:srcCompat="@drawable/ic_add_a_photo_black_36dp"
+					android:clickable="true"
+					android:focusable="true"
+					android:id="@+id/ibHeroAvatar"/>
 
-		<android.support.design.widget.TextInputLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				style="@style/input"
-				android:id="@+id/etPower">
-			<EditText android:layout_width="match_parent"
-			          android:layout_height="wrap_content"
-			          android:hint="@string/power"
-			          android:maxLength="130"/>
-		</android.support.design.widget.TextInputLayout>
-
-		<android.support.design.widget.TextInputLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				style="@style/input"
-				android:id="@+id/etWeakness">
-			<EditText
+			<android.support.design.widget.TextInputLayout
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:hint="@string/weakness"
-					android:maxLength="130"/>
-		</android.support.design.widget.TextInputLayout>
+					style="@style/input"
+					android:id="@+id/etName">
+				<EditText android:layout_width="match_parent"
+				          android:layout_height="wrap_content"
+				          android:hint="@string/name"
+				          android:maxLength="70"/>
+			</android.support.design.widget.TextInputLayout>
 
-		<Switch
-				android:text="@string/vilain"
-				android:layout_width="match_parent"
-				style="@style/label"
-				android:layout_height="51dp"
-				android:id="@+id/swVilain"
-				android:paddingLeft="5dp"/>
+			<android.support.design.widget.TextInputLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					style="@style/input"
+					android:id="@+id/etPower">
+				<EditText android:layout_width="match_parent"
+				          android:layout_height="wrap_content"
+				          android:hint="@string/power"
+				          android:maxLength="130"/>
+			</android.support.design.widget.TextInputLayout>
 
-		<Button
-				android:id="@+id/btnSave"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				style="@style/button"
-				android:text="@string/save"/>
+			<android.support.design.widget.TextInputLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					style="@style/input"
+					android:id="@+id/etWeakness">
+				<EditText
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:hint="@string/weakness"
+						android:maxLength="130"/>
+			</android.support.design.widget.TextInputLayout>
 
-		<TextView
-				android:layout_marginTop="16dp"
-				android:id="@+id/testeimg"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="img convertida"/>
-	</LinearLayout>
+			<Switch
+					android:text="@string/vilain"
+					android:layout_width="match_parent"
+					style="@style/label"
+					android:layout_height="51dp"
+					android:id="@+id/swVilain"
+					android:paddingLeft="5dp"/>
 
+			<Button
+					android:id="@+id/btnSave"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					style="@style/button"
+					android:text="@string/save"/>
+			<TextView
+					android:text="TextView"
+					android:layout_width="match_parent"
+					android:layout_height="54dp"
+					android:visibility="invisible"
+					android:id="@+id/textViewIMG"/>
+
+		</LinearLayout>
+	</ScrollView>
 	<include layout="@layout/loading" android:visibility="gone"/>
 
 </FrameLayout>
