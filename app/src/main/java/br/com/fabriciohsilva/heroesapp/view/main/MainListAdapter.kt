@@ -105,12 +105,14 @@ class MainListAdapter( val heroes: List<Hero>, val context: Context, val mainVie
             tvName.text = hero.name
             tvPower.text = hero.power
             if (hero.villain){
-                person_photo.setBackgroundResource(R.drawable.villain)
+                hero_villain_logo.setBackgroundResource(R.drawable.villain)
             } else {
-                person_photo.setBackgroundResource(R.drawable.hero)
+                hero_villain_logo.setBackgroundResource(R.drawable.hero)
             }
             if (hero.avatar != null)
                 decodeBase64AndSetImage(hero.avatar!!, ivHeroAvatar)
+            else
+                ivHeroAvatar.setBackgroundResource(R.drawable.default_avatar)
         }//end fun bindView
 
         private fun decodeBase64AndSetImage(completeImageData: String, imageView: ImageView) {
