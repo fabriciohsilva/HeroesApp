@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="action_settings">Configurações</string>
-    <string name="name">Nome</string>
-    <string name="power">Poder</string>
+    <string name="name">Nome:</string>
+    <string name="power">Poder:</string>
 	<string name="save">Salvar</string>
 	<string name="vilain">Vilão?</string>
-	<string name="weakness">Fraqueza</string>
+	<string name="weakness">Fraqueza:</string>
 	<string name="nameRequired">Nome é obrigatório</string>
 	<string name="powerRequired">Poder é obrigatório</string>
 	<string name="weaknessRequired">Fraqueza é obrigatório</string>
