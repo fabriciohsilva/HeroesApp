@@ -2,6 +2,7 @@ package br.com.fabriciohsilva.heroesapp.view.form
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import android.database.Observable
 import br.com.fabriciohsilva.heroesapp.model.Hero
 import br.com.fabriciohsilva.heroesapp.model.ResponseStatus
 import br.com.fabriciohsilva.heroesapp.repository.HeroRepository

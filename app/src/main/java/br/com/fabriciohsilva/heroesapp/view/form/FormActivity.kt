@@ -14,7 +14,6 @@ import kotlinx.android.synthetic.main.activity_form.*
 import kotlinx.android.synthetic.main.loading.*
 import android.content.Intent
 import android.graphics.BitmapFactory
-import android.provider.MediaStore
 import android.widget.ImageView
 import android.graphics.Bitmap
 import android.util.Base64
@@ -126,11 +125,11 @@ class FormActivity : AppCompatActivity() {
                 ibHeroAvatar.setImageBitmap(selectedImage)
             } catch (e: FileNotFoundException) {
                 e.printStackTrace()
-                Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.something_went_wrong), Toast.LENGTH_LONG).show()
             }
 
         } else {
-            Toast.makeText(this, "You haven't picked Image", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, getString(R.string.no_picked_image), Toast.LENGTH_LONG).show()
         }
     }
 
@@ -160,21 +159,21 @@ class FormActivity : AppCompatActivity() {
         var weakness = true
 
         if (etName.editText?.length() === 0) {
-            etName.error = getText(R.string.nameRequired)
+            etName.error = getText(R.string.name_required)
             name = false
         } else {
             etName.error = null
         }
 
         if (etPower.editText?.length() === 0) {
-            etPower.error = getText(R.string.powerRequired)
+            etPower.error = getText(R.string.power_required)
             power = false
         } else {
             etPower.error = null
         }
 
         if (etWeakness.editText?.length() === 0) {
-            etWeakness.error = getText(R.string.weaknessRequired)
+            etWeakness.error = getText(R.string.weakness_required)
             weakness = false
         } else {
             etWeakness.error = null
