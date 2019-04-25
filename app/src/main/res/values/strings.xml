@@ -6,8 +6,17 @@
 	<string name="save">Save</string>
 	<string name="vilain">Vilain?</string>
 	<string name="weakness">Weakness:</string>
-	<string name="nameRequired">Name is required</string>
-	<string name="powerRequired">Power is required</string>
-	<string name="weaknessRequired">Weakness is required</string>
-	<string name="villainRequired">Villain is required</string>
+	<string name="name_required">Name is required</string>
+	<string name="power_required">Power is required</string>
+	<string name="weakness_required">Weakness is required</string>
+	<string name="villain_required">Villain is required</string>
+	<string name="delete_item">Delete item</string>
+	<string name="confirm_delete">Should detele item</string>
+	<string name="from_list">from list</string>
+	<string name="yes">Yes</string>
+	<string name="deleted_item">deleted from list</string>
+	<string name="no">No</string>
+	<string name="no_deleted">Item was no deleted from list</string>
+	<string name="something_went_wrong">Something went wrong</string>
+	<string name="no_picked_image">You haven\'t picked Image</string>
 </resources>
