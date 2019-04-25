@@ -1,11 +1,11 @@
 <resources>
 	<string name="app_name" translatable="false">HeroesApp</string>
 	<string name="action_settings">Settings</string>
-	<string name="name">Name</string>
-	<string name="power">Power</string>
+	<string name="name">Name:</string>
+	<string name="power">Power:</string>
 	<string name="save">Save</string>
 	<string name="vilain">Vilain?</string>
-	<string name="weakness">Weakness</string>
+	<string name="weakness">Weakness:</string>
 	<string name="nameRequired">Name is required</string>
 	<string name="powerRequired">Power is required</string>
 	<string name="weaknessRequired">Weakness is required</string>

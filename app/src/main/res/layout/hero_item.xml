@@ -42,14 +42,13 @@
 				    app:layout_constraintStart_toStartOf="parent"/>
 
 		    <ImageView
-				    android:layout_width="50dp"
-				    android:layout_height="50dp"
+				    android:layout_width="40dp"
+				    android:layout_height="40dp"
 				    android:id="@+id/person_photo"
 				    android:layout_alignParentLeft="true"
 				    android:layout_alignParentTop="true"
-				    android:layout_marginTop="8dp"
 				    app:layout_constraintTop_toBottomOf="@+id/tvName"
-				    app:layout_constraintStart_toStartOf="@+id/tvName"/>
+				    app:layout_constraintStart_toStartOf="@+id/tvName" android:layout_marginTop="16dp"/>
 
 		    <TextView
 				    android:id="@+id/tvPower"
@@ -57,10 +56,8 @@
 				    style="@style/card_text"
 				    android:layout_below="@+id/tvName"
 				    android:layout_alignParentTop="true"
-				    android:layout_marginBottom="8dp"
-				    app:layout_constraintBottom_toBottomOf="@+id/person_photo"
-				    app:layout_constraintStart_toEndOf="@+id/person_photo" android:layout_marginStart="8dp"
-				    app:layout_constraintTop_toTopOf="@+id/person_photo"/>
+				    app:layout_constraintStart_toStartOf="@+id/tvWeakness"
+				    android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/tvWeakness"/>
 
 
 		    <TextView
@@ -68,10 +65,29 @@
 				    style="@style/card_text"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
-				    android:id="@+id/tvWeakness" android:layout_marginTop="8dp"
-				    app:layout_constraintTop_toBottomOf="@+id/tvPower"
-				    app:layout_constraintStart_toStartOf="@+id/tvPower"
-				    app:layout_constraintBottom_toBottomOf="@+id/person_photo"/>
+				    android:id="@+id/tvWeakness"
+				    app:layout_constraintStart_toEndOf="@+id/tvLabelWeakness"
+				    android:layout_marginStart="8dp"
+				    app:layout_constraintBottom_toBottomOf="@+id/tvLabelWeakness"/>
+		    <TextView
+				    android:text="@string/power"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:id="@+id/tvLabelPower"
+				    style="@style/label"
+				    android:textStyle="bold"
+				    app:layout_constraintTop_toTopOf="@+id/person_photo" android:layout_marginTop="4dp"
+				    app:layout_constraintStart_toEndOf="@+id/person_photo" android:layout_marginStart="16dp"/>
+		    <TextView
+				    android:text="@string/weakness"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:id="@+id/tvLabelWeakness"
+				    style="@style/label"
+				    android:layout_marginTop="8dp"
+				    app:layout_constraintTop_toBottomOf="@+id/tvLabelPower"
+				    app:layout_constraintStart_toStartOf="@+id/tvLabelPower" android:layout_marginBottom="16dp"
+				    app:layout_constraintBottom_toBottomOf="parent" android:textStyle="bold"/>
 
 	    </android.support.constraint.ConstraintLayout>
 

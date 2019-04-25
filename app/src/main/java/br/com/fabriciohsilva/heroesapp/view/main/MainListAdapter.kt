@@ -104,6 +104,7 @@ class MainListAdapter( val heroes: List<Hero>, val context: Context, val mainVie
         fun bindView(hero: Hero) = with(itemView) {
             tvName.text = hero.name
             tvPower.text = hero.power
+            tvWeakness.text = hero.weakness
             if (hero.villain){
                 person_photo.setBackgroundResource(R.drawable.villain)
             } else {
