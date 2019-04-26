@@ -1,8 +1,10 @@
 package br.com.fabriciohsilva.heroesapp.view.form
 
+import android.Manifest
 import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.DialogInterface
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -13,10 +15,16 @@ import br.com.fabriciohsilva.heroesapp.model.ResponseStatus
 import kotlinx.android.synthetic.main.activity_form.*
 import kotlinx.android.synthetic.main.loading.*
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.widget.ImageView
 import android.graphics.Bitmap
+import android.net.Uri
 import android.provider.MediaStore
+import android.provider.Settings
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
+import android.support.v7.app.AlertDialog
 import android.util.Base64
 import java.io.ByteArrayOutputStream
 import java.io.ByteArrayInputStream
@@ -34,8 +42,6 @@ class FormActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_form)
-
-        //helper = utilsHelper(this);
 
 
         formViewModel = ViewModelProviders.of(this).get(FormViewModel::class.java)
@@ -56,8 +62,10 @@ class FormActivity : AppCompatActivity() {
         }//end if (hero != null )
 
         ibHeroAvatar.setOnClickListener {
-            val i = Intent( Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-            startActivityForResult(i, RESULT_LOAD_IMAGE);
+            if (checkAndRequestPermissions()) {
+                val i = Intent( Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                startActivityForResult(i, RESULT_LOAD_IMAGE);
+            }
         }//end ibHeroAvatar.setOnClickListener
 
 
@@ -89,6 +97,97 @@ class FormActivity : AppCompatActivity() {
         registerObserver()
     }//end override fun onCreate
 
+
+    private fun checkAndRequestPermissions(): Boolean {
+        val writepermission = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        val listPermissionsNeeded = ArrayList<String>()
+
+        if (writepermission != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        }
+
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(this, listPermissionsNeeded.toTypedArray(), REQUEST_ID_MULTIPLE_PERMISSIONS)
+            return false
+        }
+        return true
+    }//end private fun checkAndRequestPermissions
+
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        when (requestCode) {
+            REQUEST_ID_MULTIPLE_PERMISSIONS -> {
+
+                val perms = HashMap<String, Int>()
+                // Initialize the map with both permissions
+                perms[Manifest.permission.WRITE_EXTERNAL_STORAGE] = PackageManager.PERMISSION_GRANTED
+
+                // Fill with actual results from user
+                if (grantResults.size > 0) {
+
+                    for (i in permissions.indices)
+                        perms[permissions[i]] = grantResults[i]
+
+                    if ( perms[Manifest.permission.WRITE_EXTERNAL_STORAGE] == PackageManager.PERMISSION_GRANTED) {
+                        val i = Intent( Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                        startActivityForResult(i, RESULT_LOAD_IMAGE);
+                    } else {
+                        //permission is denied (this is the first time, when "never ask again" is not checked) so ask again explaining the usage of permission
+                        //                        // shouldShowRequestPermissionRationale will return true
+                        //show the dialog or snackbar saying its necessary and try again otherwise proceed with setup.
+                        if ( ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                            showDialogOK("Service Permissions are required for this app",
+                                DialogInterface.OnClickListener { dialog, which ->
+                                    when (which) {
+                                        DialogInterface.BUTTON_POSITIVE -> checkAndRequestPermissions()
+                                        DialogInterface.BUTTON_NEGATIVE ->
+                                            // proceed with logic by disabling the related features or quit the app.
+                                            finish()
+                                    }
+                                })
+                        } else {
+                            explain("You need to give some mandatory permissions to continue. Do you want to go to app settings?")
+                            //                            //proceed with logic by disabling the related features or quit the app.
+                        }//permission is denied (and never ask again is  checked)
+                        //shouldShowRequestPermissionRationale will return false
+                    }
+                }
+            }
+        }
+
+    }//end override fun onRequestPermissionsResult
+
+
+    private fun showDialogOK(message: String, okListener: DialogInterface.OnClickListener) {
+        AlertDialog.Builder(this)
+            .setMessage(message)
+            .setPositiveButton("OK", okListener)
+            .setNegativeButton("Cancel", okListener)
+            .create()
+            .show()
+    }
+
+    private fun explain(msg: String) {
+        val dialog = android.support.v7.app.AlertDialog.Builder(this)
+        dialog.setMessage(msg)
+            .setPositiveButton("Yes") { paramDialogInterface, paramInt ->
+                //startActivity(Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("br.com.fabriciohsilva.heroesapp")))
+                val intent = Intent();
+                intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                val uri = Uri.fromParts("package", getPackageName(), null);
+                intent.setData(uri);
+                startActivity(intent);
+            }
+            .setNegativeButton("Cancel") { paramDialogInterface, paramInt -> finish() }
+        dialog.show()
+    }
+
+    companion object {
+        val REQUEST_ID_MULTIPLE_PERMISSIONS = 1
+    }
+
+
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -115,27 +214,6 @@ class FormActivity : AppCompatActivity() {
         }
     }//end override fun onActivityResult
 
-//    override fun onActivityResult(reqCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(reqCode, resultCode, data)
-//
-//
-//        if (resultCode == Activity.RESULT_OK) {
-//            try {
-//                val imageUri = data!!.data
-//                val imageStream = contentResolver.openInputStream(imageUri!!)
-//                val selectedImage = BitmapFactory.decodeStream(imageStream)
-//                ibHeroAvatar.setImageBitmap(selectedImage)
-//                heroAvatar = getBase64String(selectedImage)
-//
-//            } catch (e: FileNotFoundException) {
-//                e.printStackTrace()
-//                Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show()
-//            }
-//
-//        } else {
-//            Toast.makeText(this, "You haven't picked Image", Toast.LENGTH_LONG).show()
-//        }
-//    }
 
     private fun getBase64String(mCurrentPhotoPath: String): String {
         val bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath)
