@@ -21,19 +21,19 @@ import kotlinx.android.synthetic.main.hero_item.view.*
 import java.io.ByteArrayInputStream
 
 
-class MainListAdapter( val heroes: List<Hero>, val context: Context, val mainViewModel: MainViewModel, val formViewModel: FormViewModel): RecyclerView.Adapter<MainListAdapter.NoteViewHolder>() {
+class MainListAdapter( val heroes: List<Hero>, val context: Context, val mainViewModel: MainViewModel, val formViewModel: FormViewModel): RecyclerView.Adapter<MainListAdapter.HeroViewHolder>() {
 
 
     val activity = context as Activity
 
-    override fun onCreateViewHolder(p0: ViewGroup, p1: Int): NoteViewHolder {
+    override fun onCreateViewHolder(p0: ViewGroup, p1: Int): HeroViewHolder {
         val itemView = LayoutInflater
             .from(context)
             .inflate(R.layout.hero_item, p0, false)
 
         val activity = context as Activity
 
-        return NoteViewHolder(itemView)
+        return HeroViewHolder(itemView)
     }//end override fun onCreateViewHolder
 
     @Override
@@ -48,7 +48,7 @@ class MainListAdapter( val heroes: List<Hero>, val context: Context, val mainVie
         return heroes.size
     }//end override fun getItemCount
 
-    override fun onBindViewHolder(p0: NoteViewHolder, position: Int) {
+    override fun onBindViewHolder(p0: HeroViewHolder, position: Int) {
         val hero = heroes[position]
         p0.bindView(hero)
 
@@ -100,22 +100,23 @@ class MainListAdapter( val heroes: List<Hero>, val context: Context, val mainVie
 
     }//end override fun onBindViewHolder
 
-    class NoteViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    class HeroViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         fun bindView(hero: Hero) = with(itemView) {
             tvName.text = hero.name
             tvPower.text = hero.power
             tvWeakness.text = hero.weakness
             if (hero.villain){
-                person_photo.setBackgroundResource(R.drawable.villain)
+                hero_villain_logo.setBackgroundResource(R.drawable.villain)
             } else {
-                person_photo.setBackgroundResource(R.drawable.hero)
+                hero_villain_logo.setBackgroundResource(R.drawable.hero)
             }
-            if (hero.avatar != null)
+            if (hero.avatar != null && hero.avatar != "")
                 decodeBase64AndSetImage(hero.avatar!!, ivHeroAvatar)
+            else
+                ivHeroAvatar.setBackgroundResource(R.drawable.default_avatar)
         }//end fun bindView
 
         private fun decodeBase64AndSetImage(completeImageData: String, imageView: ImageView) {
-            // Incase you're storing into aws or other places where we have extension stored in the starting.
             val imageDataBytes = completeImageData.substring(completeImageData.indexOf(",") + 1)
             val stream = ByteArrayInputStream(Base64.decode(imageDataBytes.toByteArray(), Base64.DEFAULT))
             val bitmap = BitmapFactory.decodeStream(stream)
