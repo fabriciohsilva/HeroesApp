@@ -50,4 +50,8 @@
         <item name="android:textColor">@color/colorIcons</item>
     </style>
 
+    <style name="custom_card" parent="style/Widget.MaterialComponents.CardView">
+        <item name="android:background">@drawable/shadow</item>
+    </style>
+
 </resources>
