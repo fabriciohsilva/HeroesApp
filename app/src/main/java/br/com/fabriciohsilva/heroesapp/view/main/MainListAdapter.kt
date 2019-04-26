@@ -17,7 +17,6 @@ import br.com.fabriciohsilva.heroesapp.R
 import br.com.fabriciohsilva.heroesapp.model.Hero
 import br.com.fabriciohsilva.heroesapp.view.form.FormActivity
 import br.com.fabriciohsilva.heroesapp.view.form.FormViewModel
-import kotlinx.android.synthetic.main.activity_form.view.*
 import kotlinx.android.synthetic.main.hero_item.view.*
 import java.io.ByteArrayInputStream
 
@@ -67,22 +66,23 @@ class MainListAdapter( val heroes: List<Hero>, val context: Context, val mainVie
 
             val builder = AlertDialog.Builder(context)
             // Set the alert dialog title
-            builder.setTitle("Exluir item")
-            builder.setMessage("Deseja excluir o item " + heroes.get(position).name + " da lista ?")
+            builder.setTitle(context.getText(R.string.delete_item))
+            builder.setMessage(context.getString(R.string.confirm_delete) + " " +heroes.get(position).name +
+                    " " + context.getText(R.string.from_list) + "?")
 
             // Do something when user press the positive button
-            builder.setPositiveButton("YES"){dialog, which ->
+            builder.setPositiveButton(context.getText(R.string.yes)){dialog, which ->
                 var nameHero = heroes.get(position).name
 
                 formViewModel.delete(heroes.get(position))
                 mainViewModel.searchAll()
-                Toast.makeText(context, nameHero + " Excluído da lista", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, nameHero + " " + context.getString(R.string.deleted_item), Toast.LENGTH_SHORT).show()
             }
 
 
             // Display a negative button on alert dialog
-            builder.setNegativeButton("No"){dialog,which ->
-                Toast.makeText(context, " O item não foi excluído da lista", Toast.LENGTH_SHORT).show()
+            builder.setNegativeButton(context.getString(R.string.no)){dialog,which ->
+                Toast.makeText(context, context.getString(R.string.no_deleted), Toast.LENGTH_SHORT).show()
             }
 
 //            // Display a neutral button on alert dialog
@@ -104,13 +104,14 @@ class MainListAdapter( val heroes: List<Hero>, val context: Context, val mainVie
         fun bindView(hero: Hero) = with(itemView) {
             tvName.text = hero.name
             tvPower.text = hero.power
+            tvWeakness.text = hero.weakness
             if (hero.villain){
                 person_photo.setBackgroundResource(R.drawable.villain)
             } else {
                 person_photo.setBackgroundResource(R.drawable.hero)
             }
-            //if (hero.avatar != null)
-                //decodeBase64AndSetImage(hero.avatar!!, ivHeroAvatar)
+            if (hero.avatar != null)
+                decodeBase64AndSetImage(hero.avatar!!, ivHeroAvatar)
         }//end fun bindView
 
         private fun decodeBase64AndSetImage(completeImageData: String, imageView: ImageView) {

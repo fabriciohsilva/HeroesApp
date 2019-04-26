@@ -14,15 +14,13 @@ import kotlinx.android.synthetic.main.activity_form.*
 import kotlinx.android.synthetic.main.loading.*
 import android.content.Intent
 import android.graphics.BitmapFactory
-import android.provider.MediaStore
 import android.widget.ImageView
 import android.graphics.Bitmap
 import android.util.Base64
 import java.io.ByteArrayOutputStream
 import java.io.ByteArrayInputStream
 import br.com.fabriciohsilva.heroesapp.helper.utilsHelper
-
-
+import java.io.FileNotFoundException
 
 
 class FormActivity : AppCompatActivity() {
@@ -90,30 +88,50 @@ class FormActivity : AppCompatActivity() {
         registerObserver()
     }//end override fun onCreate
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//
+//        if (requestCode == RESULT_LOAD_IMAGE && resultCode == Activity.RESULT_OK && null != data) {
+//            val selectedImage = data.data
+//            val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
+//
+//            val cursor = contentResolver.query(
+//                selectedImage!!,
+//                filePathColumn, null, null, null
+//            )
+//            cursor!!.moveToFirst()
+//
+//            val columnIndex = cursor.getColumnIndex(filePathColumn[0])
+//            val picturePath = cursor.getString(columnIndex)
+//            cursor.close()
+//
+//            val imageView = findViewById<View>(R.id.ibHeroAvatar) as ImageView
+//            imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath))
+//
+//            var heroAvatar = getBase64String(picturePath)
+//            //var heroAvatar = getBa
+//        }
+//    }//end override fun onActivityResult
 
-        if (requestCode == RESULT_LOAD_IMAGE && resultCode == Activity.RESULT_OK && null != data) {
-            val selectedImage = data.data
-            val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
+    override fun onActivityResult(reqCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(reqCode, resultCode, data)
 
-            val cursor = contentResolver.query(
-                selectedImage!!,
-                filePathColumn, null, null, null
-            )
-            cursor!!.moveToFirst()
 
-            val columnIndex = cursor.getColumnIndex(filePathColumn[0])
-            val picturePath = cursor.getString(columnIndex)
-            cursor.close()
+        if (resultCode == Activity.RESULT_OK) {
+            try {
+                val imageUri = data!!.data
+                val imageStream = contentResolver.openInputStream(imageUri!!)
+                val selectedImage = BitmapFactory.decodeStream(imageStream)
+                ibHeroAvatar.setImageBitmap(selectedImage)
+            } catch (e: FileNotFoundException) {
+                e.printStackTrace()
+                Toast.makeText(this, getString(R.string.something_went_wrong), Toast.LENGTH_LONG).show()
+            }
 
-            val imageView = findViewById<View>(R.id.ibHeroAvatar) as ImageView
-            imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath))
-
-            var heroAvatar = getBase64String(picturePath)
-            //var heroAvatar = getBa
+        } else {
+            Toast.makeText(this, getString(R.string.no_picked_image), Toast.LENGTH_LONG).show()
         }
-    }//end override fun onActivityResult
+    }
 
     private fun getBase64String(mCurrentPhotoPath: String): String {
 
@@ -141,21 +159,21 @@ class FormActivity : AppCompatActivity() {
         var weakness = true
 
         if (etName.editText?.length() === 0) {
-            etName.error = getText(R.string.nameRequired)
+            etName.error = getText(R.string.name_required)
             name = false
         } else {
             etName.error = null
         }
 
         if (etPower.editText?.length() === 0) {
-            etPower.error = getText(R.string.powerRequired)
+            etPower.error = getText(R.string.power_required)
             power = false
         } else {
             etPower.error = null
         }
 
         if (etWeakness.editText?.length() === 0) {
-            etWeakness.error = getText(R.string.weaknessRequired)
+            etWeakness.error = getText(R.string.weakness_required)
             weakness = false
         } else {
             etWeakness.error = null
