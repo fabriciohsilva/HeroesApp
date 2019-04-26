@@ -146,7 +146,7 @@ class FormActivity : AppCompatActivity() {
                                     }
                                 })
                         } else {
-                            explain(getString(R.string.mandatory_permission))
+                            explain(getString(R.string.permission_required))
                             //                            //proceed with logic by disabling the related features or quit the app.
                         }//permission is denied (and never ask again is  checked)
                         //shouldShowRequestPermissionRationale will return false
