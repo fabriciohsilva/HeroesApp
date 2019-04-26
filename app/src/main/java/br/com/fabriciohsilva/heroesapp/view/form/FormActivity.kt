@@ -136,7 +136,7 @@ class FormActivity : AppCompatActivity() {
                         //                        // shouldShowRequestPermissionRationale will return true
                         //show the dialog or snackbar saying its necessary and try again otherwise proceed with setup.
                         if ( ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                            showDialogOK("Service Permissions are required for this app",
+                            showDialogOK(getString(R.string.permission_required),
                                 DialogInterface.OnClickListener { dialog, which ->
                                     when (which) {
                                         DialogInterface.BUTTON_POSITIVE -> checkAndRequestPermissions()
@@ -146,7 +146,7 @@ class FormActivity : AppCompatActivity() {
                                     }
                                 })
                         } else {
-                            explain("You need to give some mandatory permissions to continue. Do you want to go to app settings?")
+                            explain(getString(R.string.mandatory_permission))
                             //                            //proceed with logic by disabling the related features or quit the app.
                         }//permission is denied (and never ask again is  checked)
                         //shouldShowRequestPermissionRationale will return false
@@ -162,7 +162,7 @@ class FormActivity : AppCompatActivity() {
         AlertDialog.Builder(this)
             .setMessage(message)
             .setPositiveButton("OK", okListener)
-            .setNegativeButton("Cancel", okListener)
+            .setNegativeButton(getString(R.string.cancel), okListener)
             .create()
             .show()
     }
@@ -170,7 +170,7 @@ class FormActivity : AppCompatActivity() {
     private fun explain(msg: String) {
         val dialog = android.support.v7.app.AlertDialog.Builder(this)
         dialog.setMessage(msg)
-            .setPositiveButton("Yes") { paramDialogInterface, paramInt ->
+            .setPositiveButton(getString(R.string.yes)) { paramDialogInterface, paramInt ->
                 //startActivity(Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("br.com.fabriciohsilva.heroesapp")))
                 val intent = Intent();
                 intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
@@ -178,7 +178,7 @@ class FormActivity : AppCompatActivity() {
                 intent.setData(uri);
                 startActivity(intent);
             }
-            .setNegativeButton("Cancel") { paramDialogInterface, paramInt -> finish() }
+            .setNegativeButton(getString(R.string.cancel)) { paramDialogInterface, paramInt -> finish() }
         dialog.show()
     }
 
