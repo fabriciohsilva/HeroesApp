@@ -2,7 +2,6 @@ package br.com.fabriciohsilva.heroesapp.view.main
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import br.com.fabriciohsilva.heroesapp.api.getHeroAPI
 import br.com.fabriciohsilva.heroesapp.model.Hero
 import br.com.fabriciohsilva.heroesapp.repository.HeroRepository
 

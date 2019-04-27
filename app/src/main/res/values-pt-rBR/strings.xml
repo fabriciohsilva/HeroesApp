@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">HeroesApp</string>
-    <string name="action_settings">Configurações</string>
-    <string name="name">Nome</string>
-    <string name="power">Poder</string>
+	<string name="action_settings">Configurações</string>
+    <string name="name">Nome:</string>
+    <string name="power">Poder:</string>
+	<string name="save">Salvar</string>
+	<string name="vilain">Vilão?</string>
+	<string name="weakness">Fraqueza:</string>
+	<string name="name_required">Nome é obrigatório</string>
+	<string name="power_required">Poder é obrigatório</string>
+	<string name="weakness_required">Fraqueza é obrigatório</string>
+	<string name="villain_required">Vilão é obrigatório</string>
+	<string name="delete_item">Exluir item</string>
+	<string name="confirm_delete">Deseja excluir o item</string>
+	<string name="from_list">da lista</string>
+	<string name="yes">Sim</string>
+	<string name="deleted_item">Excluído da lista</string>
+	<string name="no">Não</string>
+	<string name="no_deleted">O item não foi excluído da lista</string>
+	<string name="something_went_wrong">Alguma coisa errada aconteceu</string>
+	<string name="no_picked_image">Você não escolheu a imagem</string>
+	<string name="permission_required">Para uma melhor experiência, esse app precisa de acesso</string>
+	<string name="cancel">Cancelar</string>
 </resources>

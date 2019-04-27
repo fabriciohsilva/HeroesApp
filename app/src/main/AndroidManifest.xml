@@ -3,10 +3,13 @@
           package="br.com.fabriciohsilva.heroesapp">
 
 	<uses-permission android:name="android.permission.INTERNET"/>
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 	<application
 			android:name=".HeroesApp"
 			android:allowBackup="true"
+			android:hardwareAccelerated="false"
+			android:largeHeap="true"
 			android:icon="@mipmap/ic_launcher"
 			android:label="@string/app_name"
 			android:roundIcon="@mipmap/ic_launcher_round"

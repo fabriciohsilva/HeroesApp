@@ -22,13 +22,36 @@
         <item name="android:layout_marginTop">16dp</item>
     </style>
 
-    <style name="title" parent="component_default_dimensions">
-        <item name="android:textSize">16sp</item>
+    <style name="card_title" parent="component_default_dimensions">
+        <item name="android:textSize">24sp</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorText</item>
     </style>
 
     <style name="description" parent="component_default_dimensions">
         <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="card_text" parent="component_default_dimensions">
+        <item name="android:textColor">@color/colorText</item>
+    </style>
+
+    <style name="label" parent="card_text"></style>
+
+    <style name="input" parent="component_default_dimensions">
+        <item name="android:textColor">@color/colorText</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="button" parent="component_default_dimensions">
+        <item name="android:layout_width">300dp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:background">@color/colorAccent</item>
+        <item name="android:textColor">@color/colorIcons</item>
+    </style>
+
+    <style name="custom_card" parent="style/Widget.MaterialComponents.CardView">
+        <item name="android:background">@drawable/shadow</item>
     </style>
 
 </resources>

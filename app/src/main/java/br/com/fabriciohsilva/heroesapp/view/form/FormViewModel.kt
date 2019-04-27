@@ -2,6 +2,7 @@ package br.com.fabriciohsilva.heroesapp.view.form
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import android.database.Observable
 import br.com.fabriciohsilva.heroesapp.model.Hero
 import br.com.fabriciohsilva.heroesapp.model.ResponseStatus
 import br.com.fabriciohsilva.heroesapp.repository.HeroRepository
@@ -16,11 +17,14 @@ class FormViewModel : ViewModel() {
 
     fun save(
         name: String,
-        power: String
+        power: String,
+        weakness: String,
+        villain: Boolean,
+        avatar: String
     ) {
 
         isLoading.value = true
-        val hero = Hero(name = name, power = power)
+        val hero = Hero(name = name, power = power, weakness = weakness, villain = villain, avatar = avatar)
 
         heroRepository.saveHero(hero,
             onComplete = {
@@ -42,12 +46,15 @@ class FormViewModel : ViewModel() {
     fun update(
         id: String,
         name: String,
-        power: String
+        power: String,
+        weakness: String,
+        villain: Boolean,
+        avatar: String
     ) {
 
         isLoading.value = true
 
-        val hero = Hero(name = name, power = power)
+        val hero = Hero(name = name, power = power, weakness = weakness, villain = villain, avatar = avatar)
 
         heroRepository.updateHero(id, hero,
             onComplete = {
