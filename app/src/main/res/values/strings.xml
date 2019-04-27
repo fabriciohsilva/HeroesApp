@@ -19,4 +19,6 @@
 	<string name="no_deleted">Item was no deleted from list</string>
 	<string name="something_went_wrong">Something went wrong</string>
 	<string name="no_picked_image">You haven\'t picked Image</string>
+	<string name="permission_required">For a better experiênce, this app needs some permissions</string>
+	<string name="cancel">Cancel</string>
 </resources>

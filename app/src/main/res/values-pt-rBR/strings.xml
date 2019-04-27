@@ -19,4 +19,6 @@
 	<string name="no_deleted">O item não foi excluído da lista</string>
 	<string name="something_went_wrong">Alguma coisa errada aconteceu</string>
 	<string name="no_picked_image">Você não escolheu a imagem</string>
+	<string name="permission_required">Para uma melhor experiência, esse app precisa de acesso</string>
+	<string name="cancel">Cancelar</string>
 </resources>
