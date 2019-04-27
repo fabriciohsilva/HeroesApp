@@ -8,4 +8,5 @@
     <color name="colorText">#212121</color>
     <color name="colorSecondaryText">#757575</color>
     <color name="colorDivider">#BDBDBD</color>
+    <color name="colorBackground">#eeeeee</color>
 </resources>

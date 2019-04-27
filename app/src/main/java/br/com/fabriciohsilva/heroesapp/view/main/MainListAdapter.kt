@@ -75,10 +75,10 @@ class MainListAdapter( val heroes: List<Hero>, val context: Context, val mainVie
                 var nameHero = heroes.get(position).name
 
                 formViewModel.delete(heroes.get(position))
-                notifyItemRemoved(position)
-                notifyDataSetChanged()
-                mainViewModel.searchAll()
+                this.notifyItemRemoved(position)
+                this.notifyDataSetChanged()
                 Toast.makeText(context, nameHero + " " + context.getString(R.string.deleted_item), Toast.LENGTH_SHORT).show()
+                mainViewModel.searchAll()
             }
 
 
