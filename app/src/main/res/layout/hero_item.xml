@@ -14,7 +14,7 @@
             android:layout_marginRight="15dp"
             android:layout_marginBottom="5dp"
             android:minHeight="200dp"
-            style="@style/custom_card"
+            style="@style/Widget.MaterialComponents.CardView"
             android:id="@+id/cv">
 
 	    <android.support.constraint.ConstraintLayout
